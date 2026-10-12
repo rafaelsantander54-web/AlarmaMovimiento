@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Opciones del Spinner "Cargo" en la pantalla Crear Cuenta -->
+    <string-array name="cargos">
+        <item>Seleccione Cargo</item>
+        <item>Administrador</item>
+        <item>Operador</item>
+        <item>Guardia</item>
+        <item>Supervisor</item>
+    </string-array>
+</resources>

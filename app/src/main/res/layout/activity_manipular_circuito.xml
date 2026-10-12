@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_menu"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp"
+    tools:context=".ManipularCircuito">
+
+    <TextView
+        android:id="@+id/tvusuman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre Usuario"
+        android:textAlignment="center"
+        android:textColor="@color/azul_titulo"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvtitman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Manipular Circuito"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvestado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/panel_fondo"
+        android:padding="12dp"
+        android:text="Estado de la alarma: DESACTIVADA"
+        android:textAlignment="center"
+        android:textColor="@color/rojo_alarma"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnactivar"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/verde_activar"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Activar"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:cornerRadius="80dp" />
+
+    <Button
+        android:id="@+id/btndesactivar"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/rojo_desactivar"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Desactivar"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:cornerRadius="80dp" />
+
+    <Button
+        android:id="@+id/btnvolman"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:backgroundTint="@color/rojo_alarma"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Volver"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>

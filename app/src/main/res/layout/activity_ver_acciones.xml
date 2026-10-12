@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_menu"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="20dp"
+    tools:context=".VerAcciones">
+
+    <TextView
+        android:id="@+id/tvusuacc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre Usuario"
+        android:textAlignment="center"
+        android:textColor="@color/azul_titulo"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvtitacc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Ver Acciones"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <!-- Imagen de ejemplo del listado. Más adelante se reemplazará por datos reales desde Firebase -->
+    <ImageView
+        android:id="@+id/ivlistado"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:contentDescription="Listado de acciones de ejemplo"
+        android:scaleType="fitStart"
+        android:src="@drawable/listado_ejemplo" />
+
+    <Button
+        android:id="@+id/btnvolacc"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:backgroundTint="@color/rojo_alarma"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Volver"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>

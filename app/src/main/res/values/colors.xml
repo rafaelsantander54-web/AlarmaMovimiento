@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Paleta de la aplicación AlarmaMovimiento -->
+    <color name="negro_boton">#FF111111</color>      <!-- Botones principales (negro del mockup) -->
+    <color name="rojo_alarma">#FFB00000</color>      <!-- Botón Volver / Cerrar Sesión (rojo del mockup) -->
+    <color name="azul_titulo">#FF0B1F6B</color>      <!-- "Nombre Usuario" (azul del mockup) -->
+    <color name="verde_activar">#FF2E7D32</color>    <!-- Botón Activar -->
+    <color name="rojo_desactivar">#FFC62828</color>  <!-- Botón Desactivar -->
+    <color name="blanco_campo">#FFFFFFFF</color>     <!-- Fondo de los EditText -->
+    <color name="gris_texto">#FF444444</color>
+    <color name="panel_translucido">#CCFFFFFF</color> <!-- Panel blanco semitransparente sobre el fondo -->
+</resources>
