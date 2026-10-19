@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249838372244",
+    "project_id": "alarmamovimiento-2d095",
+    "storage_bucket": "alarmamovimiento-2d095.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249838372244:android:f63150582efb0b6b347b81",
+        "android_client_info": {
+          "package_name": "cl.inacap.alarmamovimiento"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_wootnTdSTcmYUj6DWSLPnBQJV7EmiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

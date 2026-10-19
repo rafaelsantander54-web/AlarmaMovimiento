@@ -12,6 +12,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class Login : AppCompatActivity() {
 
@@ -47,33 +51,67 @@ class Login : AppCompatActivity() {
 
     fun botonLogin() {
         btnini.setOnClickListener {
-            val rut = txtrut.text.toString().trim()
-            val con = txtcon.text.toString().trim()
 
-            if (rut.isEmpty() || con.isEmpty()) {
+            if (txtrut.text.toString().trim().isEmpty()
+                || txtcon.text.toString().trim().isEmpty()) {
 
                 Toast.makeText(this@Login, "¡ Complete Los Campos Faltantes !", Toast.LENGTH_LONG).show()
 
             } else {
 
-                // Por ahora se busca en la lista en memoria (Datos).
-                // A futuro: esta consulta se hará contra Firebase Realtime Database.
-                val usu = Datos.buscarUsuario(rut, con)
+                // Se capturan los datos escritos por el usuario.
+                val rut = txtrut.text.toString().trim()
+                val con = txtcon.text.toString().trim()
+                var estado = false
 
-                if (usu != null) {
-                    // Usuario correcto: se envía el objeto "usu" hacia el Menú.
-                    val intent = Intent(this@Login, Menu::class.java)
-                    intent.putExtra("usu", usu)
-                    startActivity(intent)
-                    txtrut.setText("")
-                    txtcon.setText("")
-                } else {
-                    // Usuario y/o contraseña incorrectos: se limpian los campos.
-                    txtrut.setText("")
-                    txtcon.setText("")
-                    ocultarTeclado()
-                    Toast.makeText(this@Login, "¡ Error de Rut y/o Contraseña !", Toast.LENGTH_SHORT).show()
-                }
+                // Conexión al servicio de Firebase, apuntando a la colección "Usuario".
+                val dbref = FirebaseDatabase.getInstance().getReference("Usuario")
+
+                // Lectura de los datos de la colección (una sola vez).
+                dbref.addListenerForSingleValueEvent(object : ValueEventListener {
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        // "snapshot" representa todos los registros de la colección "Usuario".
+                        for (x in snapshot.children) {
+
+                            // Si el rut y la contraseña coinciden con algún registro, se inicia la sesión.
+                            if (rut.equals(x.child("rut").getValue().toString(), ignoreCase = true)
+                                && con == x.child("contraseña").getValue().toString()) {
+
+                                estado = true
+
+                                val usu = Usuario(
+                                    x.child("rut").getValue().toString(),
+                                    x.child("nombre").getValue().toString(),
+                                    x.child("apellido").getValue().toString(),
+                                    x.child("correo").getValue().toString(),
+                                    x.child("cargo").getValue().toString(),
+                                    x.child("contraseña").getValue().toString()
+                                )
+
+                                val intent = Intent(this@Login, Menu::class.java)
+                                intent.putExtra("usu", usu)
+                                startActivity(intent)
+                                txtrut.setText("")
+                                txtcon.setText("")
+                            }
+                        }
+
+                        // Si "estado" sigue en false, las credenciales no existen en la BD.
+                        if (estado == false) {
+                            txtrut.setText("")
+                            txtcon.setText("")
+                            ocultarTeclado()
+                            Toast.makeText(this@Login, "¡ Error de Rut y/o Contraseña !", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(this@Login, "Error de conexión: " + error.message, Toast.LENGTH_LONG).show()
+                    }
+                })
+
             } // Cierra el if/else.
         }
     } // Cierra la función "botonLogin".

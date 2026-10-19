@@ -11,6 +11,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class CrearCuenta : AppCompatActivity() {
 
@@ -84,23 +88,45 @@ class CrearCuenta : AppCompatActivity() {
                 txtcon.setText("")
                 txtcon2.setText("")
 
-            } else if (Datos.existeRut(rut)) {
-
-                Toast.makeText(this@CrearCuenta, "¡ El Rut Ya Está Registrado !", Toast.LENGTH_LONG).show()
-
             } else {
 
-                // Se crea el objeto Usuario y se guarda en la lista en memoria.
-                // A futuro: aquí se guardará en la colección de Firebase Realtime Database.
-                val usu = Usuario(rut, nom, ape, correo, cargo, con)
-                Datos.usuarios.add(usu)
+                // Conexión a Firebase, apuntando a la colección "Usuario".
+                // Cada usuario se guarda usando su rut como clave (así no se repiten).
+                val dbref = FirebaseDatabase.getInstance().getReference("Usuario")
 
-                Toast.makeText(this@CrearCuenta, "¡ Usuario Registrado Correctamente !", Toast.LENGTH_LONG).show()
+                // Primero se verifica que el rut no exista ya en la base de datos.
+                dbref.child(rut).addListenerForSingleValueEvent(object : ValueEventListener {
 
-                // Se regresa al Login para que inicie sesión con la cuenta nueva.
-                val intent = Intent(this@CrearCuenta, Login::class.java)
-                startActivity(intent)
-                finish()
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if (snapshot.exists()) {
+
+                            Toast.makeText(this@CrearCuenta, "¡ El Rut Ya Está Registrado !", Toast.LENGTH_LONG).show()
+
+                        } else {
+
+                            // Se crea el objeto Usuario y se guarda en Firebase.
+                            val usu = Usuario(rut, nom, ape, correo, cargo, con)
+
+                            dbref.child(rut).setValue(usu)
+                                .addOnSuccessListener {
+                                    Toast.makeText(this@CrearCuenta, "¡ Usuario Registrado Correctamente !", Toast.LENGTH_LONG).show()
+
+                                    // Se regresa al Login para que inicie sesión con la cuenta nueva.
+                                    val intent = Intent(this@CrearCuenta, Login::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this@CrearCuenta, "Error al registrar: " + e.message, Toast.LENGTH_LONG).show()
+                                }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(this@CrearCuenta, "Error de conexión: " + error.message, Toast.LENGTH_LONG).show()
+                    }
+                })
 
             } // Cierra el if/else.
         }

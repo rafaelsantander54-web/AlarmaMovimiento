@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    // Plugin de Google Services (Firebase)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,4 +44,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    // Firebase: BoM (controla las versiones), Analytics y Realtime Database
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database")
 }
