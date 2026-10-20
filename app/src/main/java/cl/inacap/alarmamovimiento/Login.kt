@@ -60,6 +60,7 @@ class Login : AppCompatActivity() {
             } else {
 
                 // Se capturan los datos escritos por el usuario.
+                // La contraseña se compara en forma de hash SHA-256 (ver clase Seguridad).
                 val rut = txtrut.text.toString().trim()
                 val con = txtcon.text.toString().trim()
                 var estado = false
@@ -77,7 +78,7 @@ class Login : AppCompatActivity() {
 
                             // Si el rut y la contraseña coinciden con algún registro, se inicia la sesión.
                             if (rut.equals(x.child("rut").getValue().toString(), ignoreCase = true)
-                                && con == x.child("contraseña").getValue().toString()) {
+                                && Seguridad.hash(con) == x.child("contraseña").getValue().toString()) {
 
                                 estado = true
 

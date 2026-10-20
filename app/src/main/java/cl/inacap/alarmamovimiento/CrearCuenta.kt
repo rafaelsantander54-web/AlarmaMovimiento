@@ -106,7 +106,8 @@ class CrearCuenta : AppCompatActivity() {
                         } else {
 
                             // Se crea el objeto Usuario y se guarda en Firebase.
-                            val usu = Usuario(rut, nom, ape, correo, cargo, con)
+                            // La contraseña se guarda como hash SHA-256, nunca en texto plano.
+                            val usu = Usuario(rut, nom, ape, correo, cargo, Seguridad.hash(con))
 
                             dbref.child(rut).setValue(usu)
                                 .addOnSuccessListener {

@@ -57,7 +57,8 @@ class VerPerfil : AppCompatActivity() {
         tvapeper.text = usu?.apellido
         tvcorper.text = usu?.correo
         tvcarper.text = usu?.cargo
-        tvconper.text = usu?.contraseña
+        // La contraseña no se muestra: en la BD solo existe su hash (ISO 27400).
+        tvconper.text = "••••••••"
 
         // Llamada de las funciones.
         volver()
